@@ -31,3 +31,22 @@ extension Date{
         }
     }
 }
+
+extension String{
+    
+    mutating func removeHtmlTags() {
+        
+        var firstC = self.index(of: "<")
+        var secondC = self.index(of: ">")
+        
+        while firstC != nil && secondC != nil {
+            if firstC! < secondC!{
+                self.characters.removeSubrange(firstC!...secondC!)
+                firstC = self.index(of: "<")
+                secondC = self.index(of: ">")
+            }else{
+                firstC = nil
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import SKPhotoBrowser
+//import WebKit
 
 class DetailsViewController: UIViewController {
 //MARK: - outlets, parameters,...
@@ -17,7 +18,7 @@ class DetailsViewController: UIViewController {
     var isMarvel : Bool = true
     var tableArray : [Item] = []
     var URLsTableArray : [URL] = []
-    
+
     var detaisSearchTypeIndex = 0
     var previousHighlightedCell : DetailsCell? = nil
     
@@ -108,7 +109,7 @@ class DetailsViewController: UIViewController {
         tempTextViewHeightLayout = textViewHeightLayout.constant
         
         orderBySegmenOutlet.layer.cornerRadius = 5
-        
+        //descritionWebView.backgroundColor = .red
         reloadPage()
     }
     
@@ -126,6 +127,9 @@ class DetailsViewController: UIViewController {
         tableView.separatorStyle = .none
 
         descTextView.text = item.desc
+        descTextView.text.removeHtmlTags()
+        let range : NSRange = NSRange()
+        descTextView.scrollRangeToVisible(range)
         
         generalImageViewOutlet.sd_setImage(with: item.thumbnailURL, placeholderImage: #imageLiteral(resourceName: "marvelLogoBackground"))
         generalImageViewOutlet.layer.cornerRadius = 10
