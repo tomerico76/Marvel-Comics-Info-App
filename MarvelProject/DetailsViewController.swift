@@ -458,6 +458,14 @@ extension DetailsViewController : UICollectionViewDataSource, UICollectionViewDe
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let cellSize = collectionView.contentSize.width / CGFloat(collectionView.numberOfItems(inSection: 0))
+        
+        collectionView.contentOffset.x = cellSize * CGFloat(indexPath.row - 1)
+        choosingTable(collectionView)
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate{
             choosingTable(scrollView)
@@ -472,8 +480,10 @@ extension DetailsViewController : UICollectionViewDataSource, UICollectionViewDe
         guard let colV = scrollView as? UICollectionView else{
             return
         }
-        let point = CGPoint(x: scrollView.contentOffset.x + 150, y: scrollView.contentOffset.y)
-        
+        let point = CGPoint(x: scrollView.contentOffset.x +
+            (((collectionViewOutlet.contentSize.width * 2) / CGFloat(colV.numberOfItems(inSection: 0))) - 1),
+                            y: scrollView.contentOffset.y)
+
         if let indexPath = collectionViewOutlet.indexPathForItem(at: point){
             
             if let preCell = previousHighlightedCell{

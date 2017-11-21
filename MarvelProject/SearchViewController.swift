@@ -412,6 +412,8 @@ extension SearchViewController : UIPickerViewDataSource, UIPickerViewDelegate{
         if component == 0{
             pickerView.reloadComponent(1)
             pickerView.selectRow(0, inComponent: 1, animated: false)
+            collectionArray = []
+            self.collectionView.reloadData()
         }
         pickerOrderByIndex = pickerView.selectedRow(inComponent: 1)
         determinSearchPlaceholder()
